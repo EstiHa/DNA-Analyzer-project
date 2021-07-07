@@ -1,18 +1,23 @@
 
 class DnaSequence:
-    def __init__(self, sequence):
-        valid=True
-        for x in sequence:
-            if x not in ["A", "C", "T", "G"]:
-                raise TypeError
+
+    valid_nucleotide="ACTG"
+    instance_number=0
+
+    def __init__(self, sequence, name):
+        if any(x not in DnaSequence.valid_nucleotide for x in sequence):
+            raise ValueError
         self.DNA_seq=sequence
+        self.id=DnaSequence.instance_number+1
+        DnaSequence.instance_number+=1
+        self.name=name
+
 
     def insert(self, index, nucleotide):
         if type(index) is not int or index<0 or index>=len(self.DNA_seq):
             raise IndexError
-        for x in nucleotide:
-            if x not in ["A", "C", "T", "G"]:
-                raise TypeError
+        if any(x not in DnaSequence.valid_nucleotide for x in nucleotide):
+            raise ValueError
         self.DNA_seq=self.DNA_seq[:index+1]+nucleotide+self.DNA_seq[index+1:]
 
     def __str__(self):
@@ -36,8 +41,17 @@ class DnaSequence:
             raise IndexError
         return self.DNA_seq[index]
 
+    def __setitem__(self, key, value):
+        if type(key) is not int or key<0 or key>=len(self.DNA_seq):
+            raise IndexError
+        if any(x not in DnaSequence.valid_nucleotide for x in value):
+            raise ValueError
+        self.DNA_seq=self.DNA_seq[:key]+value+self.DNA_seq[key+1:]
+
     def assignment(self, other):
         if type(other) is str:
+            if any(x not in DnaSequence.valid_nucleotide for x in other):
+                raise TypeError
             self.DNA_seq=other
         elif type(other)==DnaSequence:
             self.DNA_seq=other.DNA_seq
@@ -45,9 +59,11 @@ class DnaSequence:
             raise TypeError
 
 
-
 #Tests.....
 # dna=DnaSequence("ATG")
+# dna[1]="A"
+# print(dna)
+
 # dna1=DnaSequence("AAATG")
 # print(len(dna))
 # print(dna[2])
