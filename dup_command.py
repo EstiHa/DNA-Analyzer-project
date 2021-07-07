@@ -1,8 +1,9 @@
+from dna_sequence import DnaSequence
 from existing_DNA import existing_DNAs
 
 
 class Dup:
-    def perform_command(self, command):
+    def perform_action(self, command):
         try:
             if len(command)>2:
                name= command[2][1:]
@@ -18,9 +19,12 @@ class Dup:
                     if name==name1:
                         break
                     name=name1
-            # DnaSequence(command[1],name)
-            print(f"[{new_seq.id}] {name}: {command[1]}")
-            return new_seq
+            sequence=''
+            for seq in existing_DNAs['id']:
+                if command[1]==seq[0]:
+                    sequence=seq[1]
+            DnaSequence(sequence,name)
+            existing_DNAs[DnaSequence.instance_number]=(name, sequence)
         except IndexError:
             print("Not enough arguments for creating DNA")
         except ValueError:
