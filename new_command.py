@@ -1,8 +1,9 @@
 from dna_sequence import DnaSequence
-from existing_DNA import existing_DNAs
+from existing_DNA import Existing_DNA
 
 class New:
     instance_number=1
+    existing_DNA=Existing_DNA()
 
     def perform_action(self, command):
         try:
@@ -13,8 +14,8 @@ class New:
                 New.instance_number += 1
             new_seq=DnaSequence(command[1],name)
             print(f"[{new_seq.id}] {name}: {command[1]}")
-            existing_DNAs[id]=(name, command[1])
-            # return new_seq
+            New.existing_DNA.add_new_DNA(new_seq.id, name, command[1])
+
         except IndexError:
             print("Not enough arguments for creating DNA")
         except ValueError:
