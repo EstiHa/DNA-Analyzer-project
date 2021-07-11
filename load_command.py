@@ -18,14 +18,16 @@ class Load:
                 file_name=command[1]
             else:
                 file_name=command[1]+'.rawdna'
+
             with open(file_name) as file:
                 sequence=file.readline()
-
             new_seq = DnaSequence(sequence, name)
             if len(sequence)>40:
                 sequence=sequence[:32]+"..."+sequence[len(sequence)-4:]
+                print(sequence)
             print(f"[{new_seq.id}] {name}: {sequence}")
-            Load.existing_DNA.add_new_DNA(new_seq.id, name, sequence)
+            Load.existing_DNA.add_new_DNA(new_seq.id, new_seq)
+            Load.existing_DNA.add_name(new_seq.id, new_seq.name)
             return new_seq
         except IndexError:
             print("Not enough arguments for creating DNA")

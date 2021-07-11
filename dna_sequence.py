@@ -21,7 +21,7 @@ class DnaSequence:
         self.DNA_seq=self.DNA_seq[:index+1]+nucleotide+self.DNA_seq[index+1:]
 
     def __str__(self):
-        return 'THE DNA sequence is: '+self.DNA_seq
+        return 'The DNA sequence is: '+self.DNA_seq
 
     def __eq__(self, other):
         if type(other)!= DnaSequence:
@@ -47,6 +47,15 @@ class DnaSequence:
         if any(x not in DnaSequence.valid_nucleotide for x in value):
             raise ValueError
         self.DNA_seq=self.DNA_seq[:key]+value+self.DNA_seq[key+1:]
+
+    def get_seq(self):
+        return self.DNA_seq
+
+    def get_name(self):
+        return self.name
+
+    def get_id(self):
+        return self.id
 
     def assignment(self, other):
         if type(other) is str:

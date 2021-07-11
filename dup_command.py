@@ -6,8 +6,6 @@ class Dup:
 
     def perform_action(self, command):
         try:
-            # if command[1][0]=='#':
-            #     seq_to_dup=Dup.existing_DNA.get_DNAs(int(command[1][1:]))
             if len(command)>2:
                 name= command[2][1:]
             else:
@@ -15,14 +13,15 @@ class Dup:
                 if command[1][0]=='#':
                     i=1
                     seq_to_dup = Dup.existing_DNA.get_DNAs(int(command[1][1:]))
-                    name = f'{seq_to_dup[0]}_{i}'
+                    name = f'{seq_to_dup.name}_{i}'
                     while True:
                         name1=name
-                        for n in Dup.existing_DNA.get_DNAs().values():
+                        print(Dup.existing_DNA.get_DNAs().values())
+                        for val in Dup.existing_DNA.get_DNAs().values():
                             name=name1
-                            if name==n[0]:
+                            if name==val.name:
                                 i+=1
-                                name=f'{seq_to_dup[0]}_{i}'
+                                name=f'{seq_to_dup.name}_{i}'
                         if name==name1:
                             break
                 else:
@@ -30,8 +29,11 @@ class Dup:
                     name = f'{command[1][1:]}_{i}'
                     while True:
                         name1=name
-                        for n in Dup.existing_DNA.get_DNAs().values():
-                            if name==n[0]:
+
+                        for val in Dup.existing_DNA.get_DNAs().values():
+                            print("1",val)
+                            print(val.name)
+                            if name==val.name:
                                 i+=1
                                 name=f'{command[1][1:]}_{i}'
                         if name==name1:
@@ -40,18 +42,19 @@ class Dup:
             if command[1][0]=='#':
                 for key in Dup.existing_DNA.get_DNAs().keys():
                     if int(command[1][1:])==key:
-                        sequence=Dup.existing_DNA.get_DNAs(key)[1]
+                        sequence=Dup.existing_DNA.get_DNAs(key).DNA_seq
             else:
                 for val in Dup.existing_DNA.get_DNAs().values():
-                    if command[1][1:] == val[0]:
-                        sequence = val[1]
+                    if command[1][1:] == val.name:
+                        sequence = val.DNA_seq
 
-            DnaSequence(sequence,name)
-            Dup.existing_DNA.add_new_DNA(DnaSequence.instance_number, name, sequence)
+            new_seq=DnaSequence(sequence,name)
+            Dup.existing_DNA.add_new_DNA(DnaSequence.instance_number, new_seq)
+            Dup.existing_DNA.add_name(DnaSequence.instance_number, new_seq.name)
             print(f"[{DnaSequence.instance_number}] {name}: {sequence}")
 
         except IndexError:
-            print("Not enough arguments for creating DNA")
+            print("Not enough arguments in order to dup DNA")
         except ValueError:
             print("The sequence is invalid")
         except Exception as e:

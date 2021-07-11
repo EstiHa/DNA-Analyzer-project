@@ -1,7 +1,11 @@
+from delete_command import Delete
 from dna_sequence import DnaSequence
 from dup_command import Dup
 from load_command import Load
 from new_command import New
+from replace_command import Replace
+from save_command import Save
+from slice_command import Slice
 
 
 class Controller:
@@ -16,7 +20,11 @@ class Controller:
         commands = {
             "new": New,
             "load": Load,
-            "dup": Dup
+            "dup": Dup,
+            "slice": Slice,
+            "replace": Replace,
+            "del": Delete,
+            "save": Save
         }
         cmd = commands[command[0]]()
         req= cmd.perform_action(command)

@@ -1,6 +1,7 @@
 class Existing_DNA:
     __instance=None
     __existing_DNAs = {}
+    __DNA_names={}
 
     def __new__(cls, *args, **kwargs):
         if not Existing_DNA.__instance:
@@ -12,5 +13,17 @@ class Existing_DNA:
             return Existing_DNA.__existing_DNAs
         return Existing_DNA.__existing_DNAs[key]
 
-    def add_new_DNA(self, key, name, seq):
-        Existing_DNA.__existing_DNAs[key]=(name, seq)
+    def add_new_DNA(self, key, seq_object):
+        Existing_DNA.__existing_DNAs[key]=seq_object
+
+    def get_names(self, key=None):
+        if key==None:
+            return Existing_DNA.__DNA_names
+        return Existing_DNA.__DNA_names[key]
+
+    def add_name(self, id, name):
+        Existing_DNA.__DNA_names[name]=id
+
+    def remove_seq(self, id, name):
+        Existing_DNA.__existing_DNAs.pop(id)
+        Existing_DNA.__DNA_names.pop(name)

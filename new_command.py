@@ -14,7 +14,8 @@ class New:
                 New.instance_number += 1
             new_seq=DnaSequence(command[1],name)
             print(f"[{new_seq.id}] {name}: {command[1]}")
-            New.existing_DNA.add_new_DNA(new_seq.id, name, command[1])
+            New.existing_DNA.add_new_DNA(new_seq.id, new_seq)
+            New.existing_DNA.add_name(new_seq.id, new_seq.name)
 
         except IndexError:
             print("Not enough arguments for creating DNA")
