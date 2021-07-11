@@ -1,5 +1,5 @@
-from existing_DNA import Existing_DNA
-from management import Management
+from DNA.existing_DNA import Existing_DNA
+from managment.management import Management
 
 
 class Delete(Management):
@@ -17,9 +17,10 @@ class Delete(Management):
                 print("Delete is canceled")
             else:
                 Management.existing_DNA.remove_seq(sequence.get_id(), sequence.get_name())
-                print(f"Deleted: [{sequence.get_id()}] {sequence.get_name()}: {sequence.get_seq()}")
+                return f"Deleted: [{sequence.get_id()}] {sequence.get_name()}: {sequence.get_seq()}"
+
         except IndexError:
-            print("Not enough arguments for creating DNA")
+            print("Not enough arguments in order to delete DNA")
         except ValueError:
             print("The sequence is invalid")
         except:

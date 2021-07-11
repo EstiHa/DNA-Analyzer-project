@@ -66,34 +66,3 @@ class DnaSequence:
             self.DNA_seq=other.DNA_seq
         else:
             raise TypeError
-
-
-#Tests.....
-# dna=DnaSequence("ATG")
-# dna[1]="A"
-# print(dna)
-
-# dna1=DnaSequence("AAATG")
-# print(len(dna))
-# print(dna[2])
-# if dna==dna1:
-    # print("equal")
-# else:
-    # print("not equal")
-
-# print(type("aa"))
-# print(dna)
-
-# dna.assignment(dna1)
-# print(dna)
-
-# dna.assignment("AAA")
-# print(dna)
-
-# dna2=DnaSequence("as")
-# print(dna2)
-
-# dna.insert(1,"T4")
-# print(dna)
-
-# print(type(dna))

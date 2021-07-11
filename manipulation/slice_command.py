@@ -1,4 +1,4 @@
-from manipulation import Manipulation
+from manipulation.manipulation import Manipulation
 
 class Slice(Manipulation):
     def perform_action(self, command):

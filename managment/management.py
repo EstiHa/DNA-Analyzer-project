@@ -1,4 +1,4 @@
-from existing_DNA import Existing_DNA
+from DNA.existing_DNA import Existing_DNA
 
 class Management:
     existing_DNA=Existing_DNA()

@@ -1,5 +1,5 @@
-from dna_sequence import DnaSequence
-from existing_DNA import Existing_DNA
+from DNA.dna_sequence import DnaSequence
+from DNA.existing_DNA import Existing_DNA
 
 
 class Load:
@@ -25,10 +25,12 @@ class Load:
             if len(sequence)>40:
                 sequence=sequence[:32]+"..."+sequence[len(sequence)-4:]
                 print(sequence)
-            print(f"[{new_seq.id}] {name}: {sequence}")
             Load.existing_DNA.add_new_DNA(new_seq.id, new_seq)
             Load.existing_DNA.add_name(new_seq.id, new_seq.name)
-            return new_seq
+            return f"[{new_seq.id}] {name}: {sequence}"
+            # print(f"[{new_seq.id}] {name}: {sequence}")
+
+
         except IndexError:
             print("Not enough arguments for creating DNA")
         except ValueError:

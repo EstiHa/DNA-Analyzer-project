@@ -1,5 +1,5 @@
-from dna_sequence import DnaSequence
-from existing_DNA import Existing_DNA
+from DNA.dna_sequence import DnaSequence
+from DNA.existing_DNA import Existing_DNA
 
 
 class Manipulation:
@@ -22,10 +22,11 @@ class Manipulation:
                 new_seq = DnaSequence(manipulate_seq, new_sequence[0][1:])
             Manipulation.existing_DNA.add_new_DNA(new_seq.id, new_seq)
             Manipulation.existing_DNA.add_name(new_seq.id, new_seq.name)
-            print(f"[{new_seq.id}] {new_seq.name}: {manipulate_seq}")
+            return f"[{new_seq.id}] {new_seq.name}: {manipulate_seq}"
         else:
             dna_object.assignment(manipulate_seq)
-            print(f"[{dna_object.get_id()}] {dna_object.get_name()}: {manipulate_seq}")
+            return f"[{dna_object.get_id()}] {dna_object.get_name()}: {manipulate_seq}"
+            # print(f"[{dna_object.get_id()}] {dna_object.get_name()}: {manipulate_seq}")
 
     def extract_sequence(self, identity):
         if identity[0] == '#':

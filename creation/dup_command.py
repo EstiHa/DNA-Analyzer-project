@@ -1,5 +1,5 @@
-from dna_sequence import DnaSequence
-from existing_DNA import Existing_DNA
+from DNA.dna_sequence import DnaSequence
+from DNA.existing_DNA import Existing_DNA
 
 class Dup:
     existing_DNA=Existing_DNA()
@@ -16,7 +16,6 @@ class Dup:
                     name = f'{seq_to_dup.name}_{i}'
                     while True:
                         name1=name
-                        print(Dup.existing_DNA.get_DNAs().values())
                         for val in Dup.existing_DNA.get_DNAs().values():
                             name=name1
                             if name==val.name:
@@ -31,8 +30,6 @@ class Dup:
                         name1=name
 
                         for val in Dup.existing_DNA.get_DNAs().values():
-                            print("1",val)
-                            print(val.name)
                             if name==val.name:
                                 i+=1
                                 name=f'{command[1][1:]}_{i}'
@@ -51,7 +48,8 @@ class Dup:
             new_seq=DnaSequence(sequence,name)
             Dup.existing_DNA.add_new_DNA(DnaSequence.instance_number, new_seq)
             Dup.existing_DNA.add_name(DnaSequence.instance_number, new_seq.name)
-            print(f"[{DnaSequence.instance_number}] {name}: {sequence}")
+            # print(f"[{DnaSequence.instance_number}] {name}: {sequence}")
+            return f"[{DnaSequence.instance_number}] {name}: {sequence}"
 
         except IndexError:
             print("Not enough arguments in order to dup DNA")
