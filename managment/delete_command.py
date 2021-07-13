@@ -5,9 +5,15 @@ from managment.management import Management
 class Delete(Management):
     existing_DNA=Existing_DNA()
 
-    def perform_action(self, command):
+    def __init__(self, command):
         try:
-            sequence = self.extract_sequence(command[1])
+            self.seq_to_be_deleted = command[1]
+        except IndexError:
+            print("Not enough arguments")
+
+    def perform_action(self):
+        try:
+            sequence = self.extract_sequence(self.seq_to_be_deleted )
             print(f"Do you really want to delete {sequence.get_name()}: {sequence.get_seq()}?\nPlease confirm by 'y' or 'Y', or cancel by 'n' or 'N'.\n> confirm >>>", end=" ")
             confirm=input()
             while confirm not in ["y","Y","n","N"]:

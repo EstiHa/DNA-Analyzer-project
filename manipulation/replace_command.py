@@ -4,22 +4,27 @@ from manipulation.manipulation import Manipulation
 class Replace(Manipulation):
     existing_DNA=Existing_DNA()
 
-    def perform_action(self, command):
+    def __init__(self, command):
         try:
+            self.new_seq_details=None
+            self.seq_to_be_replaced = command[1]
             if ":" in command:
-                command1 = command[2:command.index(":")]
+                self.replacement = command[2:command.index(":")]
+                self.new_seq_details=command[command.index(":")+1:]
             else:
-                command1=command[2:]
-            sequence = self.extract_sequence(command[1])
+                self.replacement=command[2:]
+        except IndexError:
+            print("Not enough arguments")
+
+    def perform_action(self):
+        try:
+            sequence = self.extract_sequence(self.seq_to_be_replaced)
             seq = sequence.get_seq()
-            # if len(command)<2:
-            #     pass
-            # else:
             seq=list(seq)
-            for i in range(len(command1)//2):
-                seq[int(command1[i*2])]=command1[i*2+1]
+            for i in range(len(self.replacement)//2):
+                seq[int(self.replacement[i*2])]=self.replacement[i*2+1]
             seq="".join(seq)
-            return self.keep_manipulate(command, sequence, seq, "r")
+            return self.keep_manipulate(self.new_seq_details, sequence, seq, "r")
 
         except IndexError:
             print("Not enough arguments for creating DNA")

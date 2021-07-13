@@ -3,10 +3,15 @@ from analysis.analysis import Analysis
 
 
 class Len(Analysis):
-
-    def perform_action(self, command):
+    def __init__(self, command):
         try:
-            sequence= Analysis.existing_DNA.get_DNAs(int(command[1][1:]))
+            self.seq_id=command[1]
+        except IndexError:
+            print("Not enough arguments")
+
+    def perform_action(self):
+        try:
+            sequence= Analysis.existing_DNA.get_DNAs(int(self.seq_id[1:]))
             return len(sequence.get_seq())
         except IndexError:
             print("Not enough arguments in order to delete DNA")

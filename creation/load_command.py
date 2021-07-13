@@ -5,19 +5,28 @@ from DNA.existing_DNA import Existing_DNA
 class Load:
     existing_DNA=Existing_DNA()
 
-    def perform_action(self, command):
+    def __init__(self, command):
         try:
+            self.new_seq_name = None
+            self.file_name = command[1]
             if len(command) > 2:
-                name = command[2][1:]
+                self.new_seq_name = command[2]
+        except IndexError:
+            print("Not enough arguments")
+
+    def perform_action(self):
+        try:
+            if self.new_seq_name != None:
+                name = self.new_seq_name[1:]
             else:
-                if "." in command[1]:
-                    name = command[1][:command[1].index('.')]
+                if "." in  self.file_name:
+                    name =  self.file_name[: self.file_name.index('.')]
                 else:
-                    name=command[1]
-            if "." in command[1]:
-                file_name=command[1]
+                    name= self.file_name
+            if "." in self.file_name:
+                file_name= self.file_name
             else:
-                file_name=command[1]+'.rawdna'
+                file_name= self.file_name+'.rawdna'
 
             with open(file_name) as file:
                 sequence=file.readline()
@@ -28,7 +37,6 @@ class Load:
             Load.existing_DNA.add_new_DNA(new_seq.id, new_seq)
             Load.existing_DNA.add_name(new_seq.id, new_seq.name)
             return f"[{new_seq.id}] {name}: {sequence}"
-            # print(f"[{new_seq.id}] {name}: {sequence}")
 
 
         except IndexError:
