@@ -15,7 +15,7 @@ If the command is not one of few special commands (as explained below) the contr
 Now - if the CLI mode is cmd- the controller runs the command, by calling to it's perform_action function.
 Else - if the mode is batch - push it to the commands list of the batch.
 
-There is some unique command:
+There are some unique commands:
 * 'batch' - change the mode to 'batch'. From now and on, the commands would be saved and run immediately.
 * 'end' - run out of batch mode, back to the regular, cmd, mode.
 * 'run' - run specific batch - few previous commands.
